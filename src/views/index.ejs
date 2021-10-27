@@ -2,7 +2,47 @@
 <%- include('includes/nav') %>
 
 
-    <h1>Hello, world!</h1>
+<div class="conatiner">
+    <div class="row">
+        <div class="col-2"></div>
+
+        <div class="col-8">
+            <div class="content">
+                <h1 class="display-5 text-center">Bem vindo! &#128522;</h1>
+                <p class="text-center text-lead">Estes são os seus contatos! &#128071;</p>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="alert alert-danger">Um error qualquer</div>
+                    </div>
+                </div>
+
+                <div class="responsive-table">
+                    <table class="table table-primary table-striped">
+                        <thead>
+                          <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Sobrenome</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Telefone</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td scope="row">Junior</td>
+                            <td scope="row">Paula</td>
+                            <td scope="row">junior@teste.com</td>
+                            <td scope="row">(47)99988999</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-2"></div>
+    </div>
+</div>
 
     
 <%- include('includes/footer') %>

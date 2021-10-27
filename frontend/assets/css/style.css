@@ -26,3 +26,12 @@ body {
     font-weight: 400;
     margin-right: 5px;
 }
+
+/* Content */
+.content {
+    margin: 30px auto;
+}
+
+th {
+    color: #156AD7;
+}
