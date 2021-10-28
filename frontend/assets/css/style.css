@@ -35,3 +35,16 @@ body {
 th {
     color: #156AD7;
 }
+
+/* Login / Register */
+.card {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #c5d7f2;
+}
+
+.singin {
+    width: 100%;
+    font-size: 18px;
+}

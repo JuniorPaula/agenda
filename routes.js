@@ -1,17 +1,25 @@
 const express = require('express');
 const route = express.Router();
 
-/** Importando o HomeControllers */
-const HomeController = require('./src/controllers/HomeController');
+/** Importando os controllers*/
+const HomeUSerController = require('./src/controllers/HomeUSerController');
+const IndexController = require('./src/controllers/IndexController');
+
+/** Logins controlhers */
 const LoginController = require('./src/controllers/LoginController');
+const CadastroController = require('./src/controllers/CadastroController');
 
+/** Rota index, vindo do IndexControllers */
+route.get('/', IndexController.index);
 
-/** Rotas da Home, vinda do HomeController */
-route.get('/', HomeController.index);
+/** Rotas da Home, vindo do HomeUSerController */
+route.get('/home', HomeUSerController.home);
 
 /** Rotas do login, vindo do LoginController */
 route.get('/login', LoginController.index);
 
+/** Rotas de cadastro, vindo do cadastroController */
+route.get('/cadastro', CadastroController.index);
 
 /** exportando o route */
 module.exports = route;
