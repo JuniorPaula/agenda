@@ -8,7 +8,7 @@ const IndexController = require('./src/controllers/IndexController');
 /** Logins controlhers */
 const LoginController = require('./src/controllers/LoginController');
 const CadastroController = require('./src/controllers/CadastroController');
-const { Router } = require('express');
+
 
 /** Rota index, vindo do IndexControllers */
 route.get('/', IndexController.index);
@@ -18,6 +18,8 @@ route.get('/home', HomeUSerController.home);
 
 /** Rotas do login, vindo do LoginController */
 route.get('/login', LoginController.index);
+route.post('/login/singin', LoginController.login);
+route.get('/login/logout', LoginController.logout);
 
 /** Rotas de cadastro, vindo do cadastroController */
 route.get('/cadastro', CadastroController.index);

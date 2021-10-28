@@ -22,6 +22,24 @@ class Cadastro {
         this.user = null;
     }
 
+    /** método resposável por logar o usuario */
+    async login() {
+        this.valid();
+        if(this.errors.length > 0) return;
+        this.user = await CadastroModel.findOne({ email: this.body.email });
+
+        if(!this.user) {
+            this.errors.push('Usuário ou senha inválidos!');
+            return;
+        }
+
+        if(!bcryptjs.compareSync(this.body.senha, this.user.senha)) {
+            this.errors.push('Senha inválida!');
+            this.user = null;
+            return;
+        }
+    }
+
     /** método resposável por registrar o usuario na base de dados */
     async register() {
         this.valid();

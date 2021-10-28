@@ -3,6 +3,7 @@ const Cadastro = require('../models/CadastroModel');
 
 /** Controller da página de cadastro */
 exports.index = (req, res) => {
+    if(req.session.user) return res.redirect('/home');
     res.render('cadastro');
 }
 
