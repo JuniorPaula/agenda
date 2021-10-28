@@ -35,6 +35,11 @@ body {
 th {
     color: #156AD7;
 }
+.alert {
+    max-width: 480px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
 
 /* Login / Register */
 .card {

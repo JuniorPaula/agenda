@@ -8,6 +8,7 @@ const IndexController = require('./src/controllers/IndexController');
 /** Logins controlhers */
 const LoginController = require('./src/controllers/LoginController');
 const CadastroController = require('./src/controllers/CadastroController');
+const { Router } = require('express');
 
 /** Rota index, vindo do IndexControllers */
 route.get('/', IndexController.index);
@@ -20,6 +21,7 @@ route.get('/login', LoginController.index);
 
 /** Rotas de cadastro, vindo do cadastroController */
 route.get('/cadastro', CadastroController.index);
+route.post('/cadastro/register', CadastroController.register);
 
 /** exportando o route */
 module.exports = route;

@@ -10,6 +10,8 @@
             <div class="content">
                 <h1 class="display-5 text-center mb-4">Faça seu cadastro</h1>
 
+                <%- include('includes/mensages') %>
+
               <div class="card">
                 <form action="/cadastro/register" method="post" class="form">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
