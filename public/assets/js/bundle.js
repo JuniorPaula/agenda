@@ -90,6 +90,160 @@ var Login = /*#__PURE__*/function () {
 
 /***/ }),
 
+/***/ "./frontend/modules/RegisterValidate.js":
+/*!**********************************************!*\
+  !*** ./frontend/modules/RegisterValidate.js ***!
+  \**********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Register)
+/* harmony export */ });
+/* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validator */ "./node_modules/validator/index.js");
+/* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validator__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+/** class responsável por fazer a validação no frontend
+ *  do formulario de login.
+ */
+
+var Register = /*#__PURE__*/function () {
+  function Register(formRegister) {
+    _classCallCheck(this, Register);
+
+    this.form = document.querySelector(formRegister);
+    this.events();
+  }
+
+  _createClass(Register, [{
+    key: "events",
+    value: function events() {
+      var _this = this;
+
+      this.form.addEventListener('submit', function (e) {
+        _this.handleSubmit(e);
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var checkFilds = this.isValidFilds();
+      var passwordIsValid = this.checkPassword();
+
+      if (checkFilds && passwordIsValid) {
+        this.form.submit();
+      }
+    }
+  }, {
+    key: "checkPassword",
+    value: function checkPassword() {
+      var valid = true;
+      var password = this.form.querySelector('input[name=senha]');
+
+      if (password.value.length < 3 || password.value.length > 50) {
+        valid = false;
+        this.createError(password, 'Senha precisa ter entre 3 e 50 caracteres!');
+      }
+
+      return valid;
+    }
+  }, {
+    key: "isValidFilds",
+    value: function isValidFilds() {
+      var valid = true;
+
+      var _iterator = _createForOfIteratorHelper(this.form.querySelectorAll('.error-text')),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var errorText = _step.value;
+          errorText.remove();
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      var _iterator2 = _createForOfIteratorHelper(this.form.querySelectorAll('.valid')),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var campo = _step2.value;
+          var label = campo.previousElementSibling.innerHTML;
+
+          if (campo.classList.contains('email')) {
+            if (!this.validaEmail(campo)) valid = false;
+          }
+
+          if (campo.classList.contains('usuario')) {
+            if (!this.userValid(campo)) valid = false;
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      return valid;
+    }
+  }, {
+    key: "userValid",
+    value: function userValid(campo) {
+      var user = campo.value;
+      var valid = true;
+
+      if (!user) {
+        this.createError(campo, 'Usuário não pode estar vazio!');
+        valid = false;
+      }
+
+      return valid;
+    }
+  }, {
+    key: "validaEmail",
+    value: function validaEmail(campo) {
+      if (!validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(campo.value)) {
+        this.createError(campo, 'E-mail Inválido!');
+        return false;
+      }
+
+      return true;
+    }
+  }, {
+    key: "createError",
+    value: function createError(campo, msg) {
+      var div = document.createElement('div');
+      div.innerHTML = msg;
+      div.classList.add('error-text');
+      campo.insertAdjacentElement('afterend', div);
+    }
+  }]);
+
+  return Register;
+}();
+
+
+
+/***/ }),
+
 /***/ "./node_modules/core-js/internals/a-callable.js":
 /*!******************************************************!*\
   !*** ./node_modules/core-js/internals/a-callable.js ***!
@@ -16578,7 +16732,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 ___CSS_LOADER_EXPORT___.push([module.id, "@import url(https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;1,300;1,500&display=swap);"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "/* Geral*/\nbody {\n    font-family: 'Poppins', sans-serif;\n    color: #4F4F4F;\n    overflow-x: hidden;\n}\n\n/* Navbar\n*/\n.navbar {\n    border-bottom: 1px solid rgb(197, 191, 191);\n}\n.navbar .navbar-brand {\n    color: #156AD7;\n    font-size: 1.5em;\n    font-weight: 700;\n}\n\n.navbar .navbar-brand:hover {\n    color: #1e78ec;\n}\n\n.navbar-nav a {\n    color: #4F4F4F;\n    font-weight: 400;\n    margin-right: 5px;\n}\n\n/* Content */\n.content {\n    margin: 30px auto;\n}\n\n.content-index {\n    max-width: 520px;\n    margin: 30px auto;\n    background-color: #156AD7;\n    border-radius: 4px;\n    padding: 20px;\n    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, .4);\n}\n\n.content-index .title {\n    color: #fff;\n    font-size: 52px;\n    font-weight: 700;\n}\n\n.content-index p {\n    color: #fff;\n    font-size: 22px;\n}\n\nth {\n    color: #156AD7;\n}\n.alert {\n    max-width: 480px;\n    margin: 0 auto;\n    margin-bottom: 10px;\n}\n\n/* Login / Register */\n.card {\n    max-width: 480px;\n    margin: 0 auto;\n    padding: 30px;\n    background-color: #c5d7f2;\n}\n\n.singin {\n    width: 100%;\n    font-size: 18px;\n}", "",{"version":3,"sources":["webpack://./frontend/assets/css/style.css"],"names":[],"mappings":"AAEA,SAAS;AACT;IACI,kCAAkC;IAClC,cAAc;IACd,kBAAkB;AACtB;;AAEA;CACC;AACD;IACI,2CAA2C;AAC/C;AACA;IACI,cAAc;IACd,gBAAgB;IAChB,gBAAgB;AACpB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,cAAc;IACd,gBAAgB;IAChB,iBAAiB;AACrB;;AAEA,YAAY;AACZ;IACI,iBAAiB;AACrB;;AAEA;IACI,gBAAgB;IAChB,iBAAiB;IACjB,yBAAyB;IACzB,kBAAkB;IAClB,aAAa;IACb,4CAA4C;AAChD;;AAEA;IACI,WAAW;IACX,eAAe;IACf,gBAAgB;AACpB;;AAEA;IACI,WAAW;IACX,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;AACA;IACI,gBAAgB;IAChB,cAAc;IACd,mBAAmB;AACvB;;AAEA,qBAAqB;AACrB;IACI,gBAAgB;IAChB,cAAc;IACd,aAAa;IACb,yBAAyB;AAC7B;;AAEA;IACI,WAAW;IACX,eAAe;AACnB","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;1,300;1,500&display=swap');\n\n/* Geral*/\nbody {\n    font-family: 'Poppins', sans-serif;\n    color: #4F4F4F;\n    overflow-x: hidden;\n}\n\n/* Navbar\n*/\n.navbar {\n    border-bottom: 1px solid rgb(197, 191, 191);\n}\n.navbar .navbar-brand {\n    color: #156AD7;\n    font-size: 1.5em;\n    font-weight: 700;\n}\n\n.navbar .navbar-brand:hover {\n    color: #1e78ec;\n}\n\n.navbar-nav a {\n    color: #4F4F4F;\n    font-weight: 400;\n    margin-right: 5px;\n}\n\n/* Content */\n.content {\n    margin: 30px auto;\n}\n\n.content-index {\n    max-width: 520px;\n    margin: 30px auto;\n    background-color: #156AD7;\n    border-radius: 4px;\n    padding: 20px;\n    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, .4);\n}\n\n.content-index .title {\n    color: #fff;\n    font-size: 52px;\n    font-weight: 700;\n}\n\n.content-index p {\n    color: #fff;\n    font-size: 22px;\n}\n\nth {\n    color: #156AD7;\n}\n.alert {\n    max-width: 480px;\n    margin: 0 auto;\n    margin-bottom: 10px;\n}\n\n/* Login / Register */\n.card {\n    max-width: 480px;\n    margin: 0 auto;\n    padding: 30px;\n    background-color: #c5d7f2;\n}\n\n.singin {\n    width: 100%;\n    font-size: 18px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* Geral*/\nbody {\n    font-family: 'Poppins', sans-serif;\n    color: #4F4F4F;\n    overflow-x: hidden;\n}\n\n/* Navbar\n*/\n.navbar {\n    border-bottom: 1px solid rgb(197, 191, 191);\n}\n.navbar .navbar-brand {\n    color: #156AD7;\n    font-size: 1.5em;\n    font-weight: 700;\n}\n\n.navbar .navbar-brand:hover {\n    color: #1e78ec;\n}\n\n.navbar-nav a {\n    color: #4F4F4F;\n    font-weight: 400;\n    margin-right: 5px;\n}\n\n/* Content */\n.content {\n    margin: 30px auto;\n}\n\n.error-text {\n    color: rgb(238, 54, 54);\n    font-size: 14px;\n}\n.content-index {\n    max-width: 520px;\n    margin: 30px auto;\n    background-color: #156AD7;\n    border-radius: 4px;\n    padding: 20px;\n    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, .4);\n}\n\n.content-index .title {\n    color: #fff;\n    font-size: 52px;\n    font-weight: 700;\n}\n\n.content-index p {\n    color: #fff;\n    font-size: 22px;\n}\n\nth {\n    color: #156AD7;\n}\n.alert {\n    max-width: 480px;\n    margin: 0 auto;\n    margin-bottom: 10px;\n}\n\n/* Login / Register */\n.card {\n    max-width: 480px;\n    margin: 0 auto;\n    padding: 30px;\n    background-color: #c5d7f2;\n}\n\n.singin {\n    width: 100%;\n    font-size: 18px;\n}", "",{"version":3,"sources":["webpack://./frontend/assets/css/style.css"],"names":[],"mappings":"AAEA,SAAS;AACT;IACI,kCAAkC;IAClC,cAAc;IACd,kBAAkB;AACtB;;AAEA;CACC;AACD;IACI,2CAA2C;AAC/C;AACA;IACI,cAAc;IACd,gBAAgB;IAChB,gBAAgB;AACpB;;AAEA;IACI,cAAc;AAClB;;AAEA;IACI,cAAc;IACd,gBAAgB;IAChB,iBAAiB;AACrB;;AAEA,YAAY;AACZ;IACI,iBAAiB;AACrB;;AAEA;IACI,uBAAuB;IACvB,eAAe;AACnB;AACA;IACI,gBAAgB;IAChB,iBAAiB;IACjB,yBAAyB;IACzB,kBAAkB;IAClB,aAAa;IACb,4CAA4C;AAChD;;AAEA;IACI,WAAW;IACX,eAAe;IACf,gBAAgB;AACpB;;AAEA;IACI,WAAW;IACX,eAAe;AACnB;;AAEA;IACI,cAAc;AAClB;AACA;IACI,gBAAgB;IAChB,cAAc;IACd,mBAAmB;AACvB;;AAEA,qBAAqB;AACrB;IACI,gBAAgB;IAChB,cAAc;IACd,aAAa;IACb,yBAAyB;AAC7B;;AAEA;IACI,WAAW;IACX,eAAe;AACnB","sourcesContent":["@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,700;1,400&family=Poppins:ital,wght@0,100;0,200;0,400;0,600;0,700;1,300;1,500&display=swap');\n\n/* Geral*/\nbody {\n    font-family: 'Poppins', sans-serif;\n    color: #4F4F4F;\n    overflow-x: hidden;\n}\n\n/* Navbar\n*/\n.navbar {\n    border-bottom: 1px solid rgb(197, 191, 191);\n}\n.navbar .navbar-brand {\n    color: #156AD7;\n    font-size: 1.5em;\n    font-weight: 700;\n}\n\n.navbar .navbar-brand:hover {\n    color: #1e78ec;\n}\n\n.navbar-nav a {\n    color: #4F4F4F;\n    font-weight: 400;\n    margin-right: 5px;\n}\n\n/* Content */\n.content {\n    margin: 30px auto;\n}\n\n.error-text {\n    color: rgb(238, 54, 54);\n    font-size: 14px;\n}\n.content-index {\n    max-width: 520px;\n    margin: 30px auto;\n    background-color: #156AD7;\n    border-radius: 4px;\n    padding: 20px;\n    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, .4);\n}\n\n.content-index .title {\n    color: #fff;\n    font-size: 52px;\n    font-weight: 700;\n}\n\n.content-index p {\n    color: #fff;\n    font-size: 22px;\n}\n\nth {\n    color: #156AD7;\n}\n.alert {\n    max-width: 480px;\n    margin: 0 auto;\n    margin-bottom: 10px;\n}\n\n/* Login / Register */\n.card {\n    max-width: 480px;\n    margin: 0 auto;\n    padding: 30px;\n    background-color: #c5d7f2;\n}\n\n.singin {\n    width: 100%;\n    font-size: 18px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -25333,13 +25487,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! regenerator-runtime/runtime */ "./node_modules/regenerator-runtime/runtime.js");
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modules_LoginValidate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/LoginValidate */ "./frontend/modules/LoginValidate.js");
-/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./assets/css/style.css */ "./frontend/assets/css/style.css");
+/* harmony import */ var _modules_RegisterValidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/RegisterValidate */ "./frontend/modules/RegisterValidate.js");
+/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/css/style.css */ "./frontend/assets/css/style.css");
+
 
 
 
 
 var login = new _modules_LoginValidate__WEBPACK_IMPORTED_MODULE_2__["default"]('#form-login');
 login.init();
+var register = new _modules_RegisterValidate__WEBPACK_IMPORTED_MODULE_3__["default"]('#form-register');
+register.init();
 })();
 
 /******/ })()

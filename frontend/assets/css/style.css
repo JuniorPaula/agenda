@@ -33,6 +33,10 @@ body {
     margin: 30px auto;
 }
 
+.error-text {
+    color: rgb(238, 54, 54);
+    font-size: 14px;
+}
 .content-index {
     max-width: 520px;
     margin: 30px auto;
