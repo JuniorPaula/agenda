@@ -33,6 +33,26 @@ body {
     margin: 30px auto;
 }
 
+.content-index {
+    max-width: 520px;
+    margin: 30px auto;
+    background-color: #156AD7;
+    border-radius: 4px;
+    padding: 20px;
+    box-shadow: 0 5px 10px 2px rgba(0, 0, 0, .4);
+}
+
+.content-index .title {
+    color: #fff;
+    font-size: 52px;
+    font-weight: 700;
+}
+
+.content-index p {
+    color: #fff;
+    font-size: 22px;
+}
+
 th {
     color: #156AD7;
 }
