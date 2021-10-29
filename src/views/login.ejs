@@ -12,7 +12,7 @@
                 <%- include('includes/mensages') %>
 
               <div class="card">
-                <form action="/login/singin" method="post" class="form">
+                <form action="/login/singin" method="post" id="form-login" class="form">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <div class="form-group mt-3">
                         <label for="email">Seu e-mail:</label>
