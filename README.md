@@ -14,4 +14,4 @@ Banco de dados **MongoDB**;
 **Webpack** para gerar o bundle do arquivos estáticos.
 
 ## Acesse o confira ;)
-[appagenda](https://appagenda.luckwebdeveloper.tech/)
+[https://appagenda.luckwebdeveloper.tech/](https://appagenda.luckwebdeveloper.tech/)
