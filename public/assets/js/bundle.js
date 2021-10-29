@@ -14,6 +14,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validator */ "./node_modules/validator/index.js");
 /* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validator__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -26,60 +32,102 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  */
 
 var Login = /*#__PURE__*/function () {
-  function Login(formLogin) {
+  function Login(formRegister) {
     _classCallCheck(this, Login);
 
-    this.form = document.querySelector(formLogin);
+    this.form = document.querySelector(formRegister);
+    this.events();
   }
 
   _createClass(Login, [{
-    key: "init",
-    value: function init() {
-      this.events();
-    }
-    /** método responsável por disparar o evento */
-
-  }, {
     key: "events",
     value: function events() {
       var _this = this;
 
-      if (!this.form) return;
       this.form.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        _this.validate(e);
+        _this.handleSubmit(e);
       });
     }
-    /** método responsável por validar o formulário */
-
   }, {
-    key: "validate",
-    value: function validate(e) {
-      var el = e.target;
-      var emailInput = el.querySelector('input[name=email]');
-      var senhaInput = el.querySelector('input[name=senha]');
-      var msgEmail = document.createElement('span');
-      var msgSenha = document.createElement('span');
-      var error = false;
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var checkFilds = this.isValidFilds();
+      var passwordIsValid = this.checkPassword();
 
-      if (!validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(emailInput.value)) {
-        msgEmail.innerHTML = 'E-mail inválido!';
-        msgEmail.style.color = '#F7431C';
-        msgEmail.style.fontSize = '14px';
-        emailInput.insertAdjacentElement('afterend', msgEmail);
-        error = true;
+      if (checkFilds && passwordIsValid) {
+        this.form.submit();
+      }
+    }
+  }, {
+    key: "checkPassword",
+    value: function checkPassword() {
+      var valid = true;
+      var password = this.form.querySelector('input[name=senha]');
+
+      if (password.value.length < 3 || password.value.length > 50) {
+        valid = false;
+        this.createError(password, 'Senha precisa ter entre 3 e 50 caracteres!');
       }
 
-      if (senhaInput.value.length < 3 || senhaInput.value.length > 50) {
-        msgSenha.innerHTML = 'Senha precisa ter entre 3 e 50 caracteres!';
-        msgSenha.style.color = '#F7431C';
-        msgSenha.style.fontSize = '14px';
-        senhaInput.insertAdjacentElement('afterend', msgSenha);
-        error = true;
+      return valid;
+    }
+  }, {
+    key: "isValidFilds",
+    value: function isValidFilds() {
+      var valid = true;
+
+      var _iterator = _createForOfIteratorHelper(this.form.querySelectorAll('.error-text')),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var errorText = _step.value;
+          errorText.remove();
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
       }
 
-      if (!error) el.submit();
+      var _iterator2 = _createForOfIteratorHelper(this.form.querySelectorAll('.valid')),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var campo = _step2.value;
+          var label = campo.previousElementSibling.innerHTML;
+
+          if (campo.classList.contains('email')) {
+            if (!this.validaEmail(campo)) valid = false;
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      return valid;
+    }
+  }, {
+    key: "validaEmail",
+    value: function validaEmail(campo) {
+      if (!validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(campo.value)) {
+        this.createError(campo, 'E-mail Inválido!');
+        return false;
+      }
+
+      return true;
+    }
+  }, {
+    key: "createError",
+    value: function createError(campo, msg) {
+      var div = document.createElement('div');
+      div.innerHTML = msg;
+      div.classList.add('error-text');
+      campo.insertAdjacentElement('afterend', div);
     }
   }]);
 
