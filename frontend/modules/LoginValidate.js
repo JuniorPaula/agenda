@@ -4,8 +4,8 @@ import validator from "validator";
  *  do formulario de login.
  */
  export default class Login {
-    constructor(formRegister) {
-        this.form = document.querySelector(formRegister);
+    constructor(formLogin) {
+        this.form = document.querySelector(formLogin);
         this.events();
     }
 

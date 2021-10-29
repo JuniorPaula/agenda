@@ -1,6 +1,179 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./frontend/modules/ContactValidate.js":
+/*!*********************************************!*\
+  !*** ./frontend/modules/ContactValidate.js ***!
+  \*********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Contact)
+/* harmony export */ });
+/* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! validator */ "./node_modules/validator/index.js");
+/* harmony import */ var validator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(validator__WEBPACK_IMPORTED_MODULE_0__);
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+/** class responsável por fazer a validação no frontend
+ *  do formulario de login.
+ */
+
+var Contact = /*#__PURE__*/function () {
+  function Contact(formContact) {
+    _classCallCheck(this, Contact);
+
+    this.form = document.querySelector(formContact);
+  }
+
+  _createClass(Contact, [{
+    key: "events",
+    value: function events() {
+      var _this = this;
+
+      this.form.addEventListener('submit', function (e) {
+        _this.handleSubmit(e);
+      });
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      var checkFilds = this.isValidFilds();
+
+      if (checkFilds) {
+        alert('form enviado!'); //this.form.submit();
+      }
+    }
+  }, {
+    key: "isValidFilds",
+    value: function isValidFilds() {
+      var valid = true;
+
+      var _iterator = _createForOfIteratorHelper(this.form.querySelectorAll('.error-text')),
+          _step;
+
+      try {
+        for (_iterator.s(); !(_step = _iterator.n()).done;) {
+          var errorText = _step.value;
+          errorText.remove();
+        }
+      } catch (err) {
+        _iterator.e(err);
+      } finally {
+        _iterator.f();
+      }
+
+      var _iterator2 = _createForOfIteratorHelper(this.form.querySelectorAll('.valid')),
+          _step2;
+
+      try {
+        for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
+          var campo = _step2.value;
+          var label = campo.previousElementSibling.innerHTML;
+
+          if (campo.classList.contains('email')) {
+            if (!this.validaEmail(campo)) valid = false;
+          }
+
+          if (campo.classList.contains('usuario')) {
+            if (!this.nameValid(campo)) valid = false;
+          }
+
+          if (campo.classList.contains('sobrenome')) {
+            if (!this.lastnameValid(campo)) valid = false;
+          }
+
+          if (campo.classList.contains('telefone')) {
+            if (!this.phoneValid(campo)) valid = false;
+          }
+        }
+      } catch (err) {
+        _iterator2.e(err);
+      } finally {
+        _iterator2.f();
+      }
+
+      return valid;
+    }
+  }, {
+    key: "phoneValid",
+    value: function phoneValid(campo) {
+      var tel = campo.value;
+      var valid = true;
+
+      if (tel.value.length !== 11) {
+        this.createError(campo, 'Telefone precisar ter 11 digitos!');
+        valid = false;
+      }
+
+      return valid;
+    }
+  }, {
+    key: "lastnameValid",
+    value: function lastnameValid(campo) {
+      var lastname = campo.value;
+      var valid = true;
+
+      if (!lastname) {
+        this.createError(campo, 'Sobrenome não pode estar vazio!');
+        valid = false;
+      }
+
+      return valid;
+    }
+  }, {
+    key: "nameValid",
+    value: function nameValid(campo) {
+      var user = campo.value;
+      var valid = true;
+
+      if (!user) {
+        this.createError(campo, 'Nome não pode estar vazio!');
+        valid = false;
+      }
+
+      return valid;
+    }
+  }, {
+    key: "validaEmail",
+    value: function validaEmail(campo) {
+      if (!validator__WEBPACK_IMPORTED_MODULE_0___default().isEmail(campo.value)) {
+        this.createError(campo, 'E-mail Inválido!');
+        return false;
+      }
+
+      return true;
+    }
+  }, {
+    key: "createError",
+    value: function createError(campo, msg) {
+      var div = document.createElement('div');
+      div.innerHTML = msg;
+      div.classList.add('error-text');
+      campo.insertAdjacentElement('afterend', div);
+    }
+  }]);
+
+  return Contact;
+}();
+
+
+
+/***/ }),
+
 /***/ "./frontend/modules/LoginValidate.js":
 /*!*******************************************!*\
   !*** ./frontend/modules/LoginValidate.js ***!
@@ -32,10 +205,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  */
 
 var Login = /*#__PURE__*/function () {
-  function Login(formRegister) {
+  function Login(formLogin) {
     _classCallCheck(this, Login);
 
-    this.form = document.querySelector(formRegister);
+    this.form = document.querySelector(formLogin);
     this.events();
   }
 
@@ -169,11 +342,10 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
  */
 
 var Register = /*#__PURE__*/function () {
-  function Register(formRegister) {
+  function Register() {
     _classCallCheck(this, Register);
 
-    this.form = document.querySelector(formRegister);
-    this.events();
+    this.form = document.querySelector('#form-register');
   }
 
   _createClass(Register, [{
@@ -25536,16 +25708,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(regenerator_runtime_runtime__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _modules_LoginValidate__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/LoginValidate */ "./frontend/modules/LoginValidate.js");
 /* harmony import */ var _modules_RegisterValidate__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/RegisterValidate */ "./frontend/modules/RegisterValidate.js");
-/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/css/style.css */ "./frontend/assets/css/style.css");
+/* harmony import */ var _modules_ContactValidate__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/ContactValidate */ "./frontend/modules/ContactValidate.js");
+/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./assets/css/style.css */ "./frontend/assets/css/style.css");
+
 
 
 
 
 
 var login = new _modules_LoginValidate__WEBPACK_IMPORTED_MODULE_2__["default"]('#form-login');
-login.init();
-var register = new _modules_RegisterValidate__WEBPACK_IMPORTED_MODULE_3__["default"]('#form-register');
-register.init();
+login.events();
+var register = new _modules_RegisterValidate__WEBPACK_IMPORTED_MODULE_3__["default"]();
+register.events();
+var contact = new _modules_ContactValidate__WEBPACK_IMPORTED_MODULE_4__["default"]('#form-contact');
+contact.events();
 })();
 
 /******/ })()
