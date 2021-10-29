@@ -10,6 +10,7 @@ const ContatoSchema = new mongoose.Schema({
     email: { type: String, default: 'Empty' },
     telefone: { type: String, default: 'Empty' },
     created_at: { type: Date, default: Date.now },
+    user_id: { type: String, required: true },
 
 });
 
@@ -47,8 +48,8 @@ class Contato {
 
     /** método estático responsável por buscar todos
      *  os contatos e listar na view */
-    static async getContatos() {
-        const contato = await ContatoModel.find()
+    static async getContatos(id) {
+        const contato = await ContatoModel.find({ user_id: id })
             .sort({ created_at: -1 });
         return contato;
     }
@@ -89,6 +90,7 @@ class Contato {
             sobrenome: this.body.sobrenome,
             email: this.body.email,
             telefone: this.body.telefone,
+            user_id: this.body.user_id,
         }
     }
 }

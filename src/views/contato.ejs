@@ -15,6 +15,7 @@
                 <div class="card my-3">
                     <form action="/contato/register" method="post" id="form-contact" class="form">
                         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="user_id" value="<%= user._id %>">
                         <div class="form-group mt-3">
                             <label for="nome">Nome:</label>
                             <input type="text" class="form-control usuario valid" name="nome">
