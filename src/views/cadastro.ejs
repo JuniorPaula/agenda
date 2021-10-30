@@ -2,41 +2,36 @@
 <%- include('includes/nav') %>
 
 
-<div class="conatiner">
-    <div class="row">
-        <div class="col-2"></div>
+<div class="login-page">
 
-        <div class="col-8">
-            <div class="content">
-                <h1 class="display-5 text-center mb-4">Faça seu cadastro</h1>
+    <h1 class="heading">Faça seu cadastro</h1>
 
-                <%- include('includes/mensages') %>
-
-              <div class="card">
-                <form action="/cadastro/register" method="post" id="form-register" class="form">
-                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                    <div class="form-group mt-3">
-                        <label for="nome">Seu nome:</label>
-                        <input type="text" class="form-control usuario valid" name="nome">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="email">Seu e-mail:</label>
-                        <input type="email" class="form-control email valid" name="email">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="senha">Sua senha:</label>
-                        <input type="password" class="form-control valid" name="senha">
-                    </div>
-                    <div class="form-group mt-3">
-                        <button type="submit" class="btn btn-primary singin">Cadastrar</button>
-                    </div>
-                </form>
-              </div>
-            </div>
-        </div>
-
-        <div class="col-2"></div>
+    <div class="mensages">
+        <%- include('includes/mensages') %>
     </div>
+
+    <div class="row">
+    <form action="/cadastro/register" method="post" id="form-register" class="form">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <div class="">
+            <i class="fas fa-user"></i>
+            <input type="text" class="box usuario valid" name="nome">
+        </div>
+        <div class="">
+            <i class="fas fa-envelope"></i>
+            <input type="email" class="box email valid" name="email">
+        </div>
+        <div class="">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="box valid" name="senha">
+        </div>
+        <div class="">
+            <button type="submit" class="btn singin">Cadastrar</button>
+        </div>
+    </form>
+    </div>
+    <div class="fas fa-cog nut1"></div>
+    <div class="fas fa-cog nut2"></div>
 </div>
 
     

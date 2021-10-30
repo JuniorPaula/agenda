@@ -1,6 +1,8 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 
+import appjs from './modules/app';
+
 import Login from './modules/LoginValidate';
 import Register from './modules/RegisterValidate';
 import Contact from './modules/ContactValidate';

@@ -1,39 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <% if(!user) { %> 
-        <a class="navbar-brand" href="/">Agenda</a>
+<header class="header">
+  <% if(!user) { %> 
+    <a class="logo" href="/">Agenda</a>
+  <% } else { %>
+    <a class="logo" href="/home">Agenda</a>
+  <% } %>
+
+  <div class="fas fa-bars"></div>
+
+  <nav class="navbar">
+    <ul>
+      <% if(!user) { %>
+        <li><a href="/login">Entrar</a></li>
+        <li>
+          <a href="/cadastro">
+            <button class="btn">Cadastrar</button>
+          </a>
+        </li>
       <% } else { %>
-        <a class="navbar-brand" href="/home">Agenda</a>
+        <li> <a href="/home">Contatos</a> </li>  
+        <li><a href="/contato">Adicionar</a></li>  
+        <li><a href="/login/logout">Sair</a> </li>
       <% } %>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <% if(!user) { %>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/login">Entrar</a>
-            </li>
-            <li class="nav-item">
-              <a href="/cadastro" class="btn btn-primary text-light me-3">
-                Cadastrar
-              </a>
-            </li>
-          <% } else { %>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/home">Contatos</a>
-            </li>  
-
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/contato">Adicionar</a>
-            </li>  
-
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="/login/logout">Sair</a>
-            </li>
-
-          <% } %>
-        </ul>
-      </div>
-    </div>
+    </ul>
   </nav>
+</header>
