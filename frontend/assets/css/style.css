@@ -430,5 +430,76 @@ td {
     .login-page .row .form {
         width: 70vw;
     }
+    
+    table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tr { border: 1px solid #ccc; }
+      td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 200px;
+        margin-left: 150px;
+      }
+      td:before {
+        position: absolute;
+        top: 12px;
+        left: 6px;
+        width: 200px;
+        padding-right: 40px;
+        white-space: nowrap;
+        margin-left: -150px;
+      }
+      td:nth-of-type(1):before { content: "Nome"; }
+      td:nth-of-type(2):before { content: "Sobrenome"; }
+      td:nth-of-type(3):before { content: "E-mail"; }
+      td:nth-of-type(4):before { content: "Telefone";}
+      td:nth-of-type(5):before { content: "Ações";}
+
+}
+
+@media (max-width: 550px) {
+    .container h1 {
+        margin-top: 20rem;
+    }
+    .container table {
+        width: 90%;
+    }
+    table, thead, tbody, th, td, tr {
+        display: block;
+      }
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+      tr { border: 1px solid #ccc; }
+      td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 6px;
+        margin-left: 150px;
+      }
+      td:before {
+        position: absolute;
+        top: 12px;
+        left: 6px;
+        width: 200px;
+        padding-right: 40px;
+        white-space: nowrap;
+        margin-left: -175px;
+      }
+      td:nth-of-type(1):before { content: "Nome"; }
+      td:nth-of-type(2):before { content: "Sobrenome"; }
+      td:nth-of-type(3):before { content: "E-mail"; }
+      td:nth-of-type(4):before { content: "Telefone";}
+      td:nth-of-type(5):before { content: "Ações";}    
 
 }
