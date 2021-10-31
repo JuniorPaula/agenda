@@ -34,8 +34,8 @@ route.post('/cadastro/register', CadastroController.register);
 /** Rotas de contato / criar contato */
 route.get('/contato', loginRequired, ContatoController.index);
 route.post('/contato/register', loginRequired, ContatoController.register);
-route.get('/contato/edit/:id', loginRequired, ContatoController.edit);
-route.post('/contato/editar/:id', loginRequired, ContatoController.editarContato);
+route.get('/contato/:id', loginRequired, ContatoController.edit);
+route.post('/contato/edit/:id', loginRequired, ContatoController.editarContato);
 route.get('/contato/delete/:id', loginRequired, ContatoController.delete);
 
 /** exportando o route */

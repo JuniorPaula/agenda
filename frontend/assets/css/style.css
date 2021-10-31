@@ -321,6 +321,7 @@ body {
 .container h1 {
     color: var(--primary-color);
     font-size: 4.2rem;
+    margin-top: 10rem;
 }
 
 .container p {

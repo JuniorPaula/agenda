@@ -11,24 +11,25 @@
     </div>
 
     <div class="row">
-        <form action="/contato/register" method="post" id="form-contact" class="form">
+        <form action="/contato/register" method="post" id="form-contact" class="form">  
+
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <input type="hidden" name="user_id" value="<%= user._id %>">
             <div class="">
                 <i class="fas fa-user"></i>
-                <input type="text" class="box usuario valid" name="nome" placeholder="Digite o nome">
+                <input type="text" class="box usuario valid"  name="nome" placeholder="Digite o nome">
             </div>
             <div class="">
                 <i class="fas fa-user-edit"></i>
-                <input type="text" class="box sobrenome valid" name="sobrenome" placeholder="Digite o sobrenome"> 
+                <input type="text" class="box sobrenome valid"  name="sobrenome" placeholder="Digite o sobrenome"> 
             </div>
             <div class="">
                 <i class="fas fa-envelope"></i>
-                <input type="email" class="box email valid" name="email" placeholder="Digite seu e-mail">
+                <input type="email" class="box email valid" name="email"  placeholder="Digite seu e-mail">
             </div>
             <div class="">
                 <i class="fas fa-mobile-alt"></i>
-                <input type="tel" class="box telefone valid" name="telefone" placeholder="Digite o telefone">
+                <input type="tel" class="box telefone valid" name="telefone"  placeholder="Digite o telefone">
             </div>
             <div class="">
                 <button type="submit" class="btn singin">Salvar</button>

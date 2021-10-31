@@ -20,7 +20,7 @@ exports.register = async (req, res) => {
         }
     
         req.flash('success', 'Contato registrado com sucesso!');
-        req.session.save(() => res.redirect(`/contato/edit/${contato.contato._id}`));
+        req.session.save(() => res.redirect(`/contato/${contato.contato._id}`));
         return;
 
     } catch (e) {
@@ -29,13 +29,13 @@ exports.register = async (req, res) => {
     }
 }
 
-/** método responsável por esitar os contatos */
+/** método responsável por editar os contatos */
 exports.edit = async (req, res) => {
     if(!req.params.id) return res.redirect('404');
 
     try {
         const contato = await Contato.getUserById(req.params.id);
-        if(!contato) return res.redirect('404');
+        if(!contato) return res.render('404');
         
         res.render('editar', { contato });
 
@@ -49,7 +49,7 @@ exports.editarContato = async (req, res) => {
     
     try {
 
-        if(!req.params.id) return res.redirect('404');
+        if(!req.params.id) return res.render('404');
         const contato = new Contato(req.body);
         await contato.editContato(req.params.id);
     
@@ -60,7 +60,7 @@ exports.editarContato = async (req, res) => {
         }
     
         req.flash('success', 'Contato editado com sucesso!');
-        req.session.save(() => res.redirect('/home'));
+        req.session.save(() => res.redirect(`/contato/${contato.contato._id}`));
         return;
 
     } catch (e) {
